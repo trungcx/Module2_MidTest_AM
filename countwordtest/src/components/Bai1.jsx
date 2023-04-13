@@ -6,6 +6,7 @@ function Bai1(props) {
   const [para, setPara] = useState(0);
   const [myTextArr, setMyTextArr] = useState([]);
   const [inputText, setInputText] = useState([]);
+  const [enterFlag, setEnterFlag] = useState(false);
   //
   const handleTextChange = (event) => {
     let text = event.target.value;
@@ -18,9 +19,19 @@ function Bai1(props) {
     setMyTextArr(() => [...inputTextArr]);
     setWord(inputTextArr.length);
     setLetter(text.length);
+    if (text == "") {
+      setPara(0);
+    } else {
+      if (enterFlag == false) {
+        setPara(1);
+      } else {
+        setPara(para);
+      }
+    }
   };
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
+      setEnterFlag(true);
       setPara(para + 1);
     }
   };
@@ -54,6 +65,7 @@ function Bai1(props) {
       </div>
       <div className="text-area">
         <textarea
+          value={inputText}
           onChange={handleTextChange}
           placeholder="Enter/Paste Your text here"
           onKeyDown={handleKeyDown}
